@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Registration</title>
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'assets/images/fav.png' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+<body>
+    <div class="container-fluid bg-login">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12 login-card">
+                    <div class="row">
+                        <div class="col-md-5 detail-part">
+                            
+                            <h1>Welcome {{user1}} !</h1> 
+                            <nav class="nav">
+                                <a class="btn btn-success" href="{% url 'doctorleave' %}">apply leave</a>
+                                <a class="btn btn-danger" >Holidays</button>
+                                <a class="btn btn-danger" >Patients</button>   
+                                <a class="btn btn-primary" href="{% url 'doctorLogin'%}">Logout</a>
+                            </nav>
+                            
+                            
+                        </div>
+                        <div class="col-md-7 logn-part">
+                          <div class="row">
+                              <div class="col-lg-10 col-md-12 mx-auto">
+                                    <div class="form-cover">
+                                    
+                                        {% block content %}
+
+                                        {% endblock %}
+                                         
+                                    </div>
+                              </div>
+                          </div>
+                           
+                           
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+</html>

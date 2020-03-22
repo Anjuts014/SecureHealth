@@ -1,0 +1,71 @@
+{% extends 'secureHealth/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-lg-8 offset-lg-2">
+    <h4 class="page-title">Add Schedule</h4>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-8 offset-lg-2">
+    <form action="{% url 'addschedule' %}" method="POST" >
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Doctor Name</label>
+                    <select class="select form-control" name="doctor_name">
+                        <option>Select</option>
+                        <option value="Dr Anitha Samuel">Dr Anitha Samuel</option>
+                        <option value="Dr Ramesh Raj">Dr Ramesh Raj</option>
+                        <option value="Dr Veena Madhavan">Dr Veena Madhavan</option>
+                        <option value="'Dr Rashmika Yash">'Dr Rashmika Yash</option>
+                        <option value="Dr shanthi Sarogam">Dr shanthi Sarogam</option>
+                        <option value="Dr Mathew Vargheese">Dr Mathew Vargheese</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Available Days</label>
+                    <input type="text" name="available_days" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Start Time</label>
+                    <div class="time-icon">
+                        <input type="text" class="form-control" name="start_time">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>End Time</label>
+                    <div class="time-icon">
+                        <input type="text" class="form-control" name="end_time">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Message</label>
+            <textarea cols="30" rows="4" class="form-control" name="message"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="display-block">Schedule Status</label>
+            <div class="form-check-inline">
+                <input type="radio" name="schedule_status" class="form-check-input" value="active">active
+                <input type="radio" name="schedule_status" class="form-check-input" value="inactive">inactive
+            </div>
+            
+        </div>
+        <div class="m-t-20 text-center">
+            <button class="btn btn-primary submit-btn">Create Schedule</button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

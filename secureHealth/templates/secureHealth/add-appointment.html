@@ -1,0 +1,105 @@
+{% extends 'secureHealth/base.html' %}
+{% block content %}
+<div class="col-lg-8 offset-lg-2">
+    <h4 class="page-title">Add Appointment</h4>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-8 offset-lg-2">
+    <form action="{% url 'addAppointment' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Appointment ID</label>
+                    <input class="form-control" type="text" name="appointment_id">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Patient Name</label>
+                    <input class="form-control" type="text" name="patient_name">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Department</label>
+                    <select class="select form-control" name="department">
+                        <option>Select</option>
+                        <option value="Dentists">Dentists</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Opthalmology">Opthalmology</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Cancer Department">Cancer Department</option>
+                        <option value="ENT Department">ENT Department</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Doctor</label>
+                    <select class="select form-control" name="doctor">
+                        <option>Select</option>
+                        <option value="Dr Anitha Samuel">Dr Anitha Samuel</option>
+                        <option value="Dr Ramesh Raj">Dr Ramesh Raj</option>
+                        <option value="Dr Veena Madhavan">Dr Veena Madhavan</option>
+                        <option value="Dr Rashmika Yash">Dr Rashmika Yash</option>
+                        <option value="Dr shanthi Sarogam">Dr shanthi Sarogam</option>
+                        <option value="Dr Mathew Vargheese">Dr Mathew Vargheese</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Date</label>
+                    <div class="cal-icon">
+                        <input type="text" name="date" class="form-control datetimepicker">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Time</label>
+                    <div class="time-icon">
+                        <input type="text" name="time" class="form-control" id="datetimepicker3">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Patient Email</label>
+                    <input class="form-control" name="patient_email" type="email">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Patient Phone Number</label>
+                    <input class="form-control" name="patient_phone_number" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Message</label>
+            <input type="text" name="message" class="form-control">
+            <!-- <textarea cols="30" rows="4"  name="message" class="form-control"></textarea> -->
+        </div>
+        <div class="form-group">
+            <label class="display-block">Appointment Status</label>
+            <div class="form-check-inline">
+                <input type="radio" name="appointment_status" class="form-check-input" value="active">active
+                <input type="radio" name="appointment_status" class="form-check-input" value="inactive">inactive
+            </div>
+        </div>
+        <div class="m-t-20 text-center">
+            <button class="btn btn-primary submit-btn">Create Appointment</button>
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

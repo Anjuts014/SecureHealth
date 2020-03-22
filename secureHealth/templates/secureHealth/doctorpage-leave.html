@@ -1,0 +1,14 @@
+{% extends 'secureHealth/base2.html' %}
+{% load static %}
+{% block content %}                                  
+<form action="{% url 'doctorleave' %}" method="POST">
+    {% csrf_token %}
+    <table>{{form}}</table>
+                                    
+        <div class="col-md-6 button-div">
+            <button class="btn btn-primary" value="submit">Apply</button>
+        </div>
+    </div>
+
+</form>
+{% endblock %}

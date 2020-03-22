@@ -1,0 +1,61 @@
+{% extends 'secureHealth/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-sm-4 col-3">
+    <h4 class="page-title">Doctors</h4>
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+    <div class="table-responsive">
+        <table class="table table-border table-striped custom-table datatable mb-0">
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Specialization</th>
+                    <th>Date of birth</th>
+                    <th>Gender</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>District</th>
+                    <th>Pincode</th>
+                    <th>Mobile number</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in  doctors%}
+                <tr>
+                    <td><img width="28" height="28" src="{% static 'assets2/img/user.jpg' %}" class="rounded-circle m-r-5" alt=""> {{doctor.first_name}}</td>
+                    <td>{{doctor.last_name}}</td>
+                    <td>{{doctor.email}}</td>
+                    <td>{{doctor.short_biography}}</td>
+                    <td>{{doctor.date_of_birth}}</td>
+                    <td>{{doctor.gender}}</td>
+                    <td>{{doctor.country}}</td>
+                    <td>{{doctor.city}}</td>
+                    <td>{{doctor.state}}</td>
+                    <td>{{doctor.district}}</td>
+                    <td>{{doctor.pincode}}</td>
+                    <td>{{doctor.mobile_number}}</td>
+                    <td>
+                        {% if doctor.status == "active" %}
+                            <span class="custom-badge status-green">{{doctor.status}}</span>
+                        {% else %}
+                            <span class="custom-badge status-red">{{doctor.status}}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+               
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+{% endblock %}

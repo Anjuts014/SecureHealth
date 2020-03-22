@@ -1,0 +1,89 @@
+{% extends 'secureHealth/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-lg-8 offset-lg-2">
+    <h4 class="page-title">Add Leave</h4>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-8 offset-lg-2">
+    <form action="{% url 'addleave' %}" method="POST">
+        {% csrf_token %}
+        {{form.errors}}
+        <div class="form-group">
+            <label>Leave Type <span class="text-danger">*</span></label>
+            <select class="select form-control " name="leave_type">
+                <option>Select Leave Type</option>
+                <option value="Casual Leave">Casual Leave</option>
+                <option value="Medical Leave">Medical Leave</option>
+                <option value="Loss of Pay">Loss of Pay</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Employee ID <span class="text-danger">*</span></label>
+                    <input type="text" name="employee_id" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Role</label>
+                    <select class="select form-control" name="employee_role">
+                        <option value="Admin">Admin</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Nurse">Nurse</option>
+                        <option value="Laboratorist">Laboratorist</option>
+                        <option value="Pharmacist">Pharmacist</option>
+                        <option value="Accountant">Accountant</option>
+                        <option value="Receptionist">Receptionist</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>From <span class="text-danger">*</span></label>
+                    <div class="cal-icon">
+                        <input class="form-control datetimepicker" ' name="leave_from" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>To <span class="text-danger">*</span></label>
+                    <div class="cal-icon">
+                        <input class="form-control datetimepicker"  name="leave_to" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Number of days <span class="text-danger">*</span></label>
+                    <input class="form-control" name="number_of_days" type="text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Remaining Leaves <span class="text-danger">*</span></label>
+                    <input class="form-control"  name="remaining_leaves" type="text">
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Leave Reason <span class="text-danger">*</span></label>
+            <textarea rows="4" cols="5" class="form-control" name="leave_reason"></textarea>
+        </div>
+        
+        <div class="m-t-20 text-center">
+            <button class="btn btn-primary submit-btn">Send Leave Request</button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

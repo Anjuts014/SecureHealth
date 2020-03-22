@@ -1,0 +1,159 @@
+{% extends 'secureHealth/base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-lg-8 offset-lg-2">
+    <h4 class="page-title">Edit Patient Record</h4>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-8 offset-lg-2">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            {{form.errors}}
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Name <span class="text-danger">*</span></label>
+                    <input class="form-control" name="name" value="{{decrypt_data.0}}" type="text">
+                    
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Age</label>
+                    <input class="form-control" name="age" value="{{decrypt_data.1}}" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Blood Group</label>
+                    
+                    <select name="blood_group"  value="{{decrypt_data.2}}" class="select form-control">
+                        <option value="{{decrypt_data.2}}" selected>{{decrypt_data.2}}</option>
+                        <option value="O+ve">O+ve</option>
+                        <option value="O-ve">O-ve</option>
+                        <option value="A+ve">A+ve</option>
+                        <option value="A-ve">A-ve</option>
+                        <option value="B+ve">B+ve</option>
+                        <option value="B-ve">B-ve</option>
+                        <option value="AB+ve">AB+ve</option>
+                        <option value="AB-ve">AB-ve</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Phone_number <span class="text-danger">*</span></label>
+                    <input class="form-control" name="phone_number" value="{{decrypt_data.3}}" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Haemoglobin <span class="text-danger">*</span></label>
+                    <input class="form-control" name="haemoglobin" value="{{decrypt_data.4}}" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>WBC</label>
+                    <input class="form-control" name="wbc" value="{{decrypt_data.5}}" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Granulocyte</label>
+                    <input class="form-control" name="granulocyte" value="{{decrypt_data.6}}" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Neutrophils</label>
+                    <div class="cal-icon">
+                        <input type="text" name="neutrophils" value="{{decrypt_data.7}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Platelet Count</label>
+                    <div class="cal-icon">
+                        <input type="text" name="platelet_Count" value="{{decrypt_data.8}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Cholestrol</label>
+                    <div class="cal-icon">
+                        <input type="text" name="cholestrol" value="{{decrypt_data.9}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Triglycerides</label>
+                    <div class="cal-icon">
+                        <input type="text" name="triglycerides" value="{{decrypt_data.10}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>TSH</label>
+                    <div class="cal-icon">
+                        <input type="text" name="tsh" value="{{decrypt_data.11}}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Bilirubin Total</label>
+                    <input class="form-control" name="bilirubin_total" value="{{decrypt_data.12}}" type="text">
+                </div>
+            </div>
+        
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Globulins</label>
+                    <input class="form-control" name="globulins" value="{{decrypt_data.13}}" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Blood urea</label>
+                    <input class="form-control" name="blood_urea" value="{{decrypt_data.14}}" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Albumin</label>
+                    <input class="form-control" name="albumin" value="{{decrypt_data.15}}" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Potassium</label>
+                    <input class="form-control" name="potassium" value="{{decrypt_data.16}}" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Sodium</label>
+                    <input class="form-control" name="sodium" value="{{decrypt_data.17}}" type="text">
+                </div>
+            </div>
+            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Message</label>
+                    <input class="form-control" name="message" value="{{decrypt_data.18}}" type="text">
+                </div>
+            </div>
+        <div class="m-t-20 text-center">
+            <input type="submit"  class="btn btn-primary submit-btn" value="Save">
+            
+        </div>
+    </form>
+</div>
+{% endblock %}

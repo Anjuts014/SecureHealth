@@ -1,0 +1,24 @@
+{% extends 'secureHealth/base2.html' %}
+{% load static %}
+{% block content %}                                  
+<form action="doctorleave" method="POST">
+    {% csrf_token %}
+    
+    <p>
+        <label>Appointments</label>
+        <select>
+            <option id="1">Teena</option>
+            <option id="2">Amira</option>
+            <option id="3">Safna</option>
+        </select>
+    </p>
+    
+    <div class="row form-footer">
+                                        
+        <div class="col-md-6 button-div">
+            <button class="btn btn-primary" value="submit">confirm</button>
+        </div>
+    </div>
+
+</form>
+{% endblock %}

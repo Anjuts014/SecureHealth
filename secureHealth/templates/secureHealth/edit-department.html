@@ -1,0 +1,40 @@
+{% extends 'secureHealth/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-lg-8 offset-lg-2">
+    <h4 class="page-title">Add Department</h4>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-8 offset-lg-2">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Department Name</label>
+            <input class="form-control" name="department_name" value="{{department.department_name}}" type="text">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea cols="30" rows="4" name="message" class="form-control" >{{department.message}}</textarea>
+        </div>
+        <div class="form-group">
+            <label class="display-block">Department Status</label>
+            <div class="form-check-inline">
+                {% if department.status == "active" %}
+                    <input type="radio" name="status" class="form-check-input" value="active" checked>active
+                    <input type="radio" name="status" class="form-check-input" value="inactive">inactive
+                {% else %}
+                    <input type="radio" name="status" class="form-check-input" value="active" checked>active
+                    <input type="radio" name="status" class="form-check-input" value="inactive">inactive
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="m-t-20 text-center">
+            <button class="btn btn-primary submit-btn">Update Department</button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

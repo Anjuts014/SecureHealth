@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SecureHealth</title>
+
+    <link rel="shortcut icon" href="{% static 'images/fav.jpg' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawsom-all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <style>
+      input:invalid {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+
+    <body class="h-100">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row title">
+                    <table>
+                      <tr>
+                        <td> <h2 style="color: blue;">Secure Sharing of Patients Health Record</h2></td>
+                        <td>
+                            <div class="btndiv">
+                              <a class="btn btn-success" href="{% url 'login'%}">Login</a>
+                              <!-- <button onclick="loginpage()" class="btn btn-success"> -->
+                              
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btndiv">
+                                <a class="btn btn-success" href="{% url 'registrationpage'%}">Register Now</a>
+                                <!-- <button onclick="registrationpage()" class="btn btn-success">
+                                <i class="fas fa-user-plus"></i> Register Now</button> -->
+                            </div>
+                        </td>
+                      </tr>
+                    </table>
+                
+                  
+                   
+                </div>
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/dept-1.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{% static 'images/dept-2.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{% static 'images/dept-3.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+                </div> 
+                
+              
+                </div>
+            </div>
+            
+            <!-- <div id="login" class="modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog tem-doc" role="document">
+                <div class="modal-content temp-model">
+                  <div class="modal-header">
+                    <h5 class="modal-title">User login</h5> <br>
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body"> -->
+                       <!-- <div class="row form-ro">
+                            <input placeholder="Enter Username" class="form-control" type="text">
+                       </div>
+                       <div class="row form-ro">
+                            <input placeholder="Enter Password" class="form-control" type="password">
+                       </div>
+                       <div class="row form-ro">
+                            <button onclick="" class="btn btn-success">Log In</button>
+                       </div>
+                        <div class="row form-ro">
+                            <button onclick="signup()" class="btn btn-danger">Dont have an account! Sign Up</button>
+                       </div> -->
+                  <!-- </div>
+                  <div class="modal-footer">
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div id="signup" class="modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog tem-doc" role="document">
+                <div class="modal-content temp-model">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Registration</h5> <br>
+                  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body"> -->
+
+                       <!-- <div class="row form-ro">
+                            <input placeholder="Enter Name" class="form-control" type="text" required>
+                        </div>
+                       <div class="row form-ro">
+                            <input placeholder="Enter Username" class="form-control" type="text" required>
+                       </div>
+                       <div class="row form-ro">
+                            <input placeholder="Enter Email Address" class="form-control" type="text">
+                       </div>
+                       <div class="row form-ro">
+                            <input placeholder="Enter Address" class="form-control" type="text">
+                        </div>
+                        <div class="row form-ro">
+                          <input placeholder="Enter Age" class="form-control" type="number" required>
+                      </div>
+                        <div class="row form-ro">
+                          <input placeholder="Enter Blood group" class="form-control" type="text" required> -->
+                            <!-- <select name="" id="" class="form-control">
+                            <option value="">Blood group</option>
+                            <option value="">O-</option>
+                            <option value="">O+</option>
+                            <option value="">A+</option>
+                            <option value="">A-</option>
+                            <option value="">B+</option>
+                            <option value="">AB+</option>
+                            <option value="">AB-</option>
+                          </select> -->
+                      <!-- `</div>
+                      <div class="row form-ro">
+                        <input placeholder="Enter Phone Number" class="form-control" type="number"pattern="[0-9]+{10}" required>
+                    </div>
+                       <div class="row form-ro">
+                            <input placeholder="Enter Password" class="form-control" type="password"required>
+                       </div>
+
+                       <div class="row form-ro">
+                            <button class="btn btn-success" type="submit">Sign Up</button>
+                       </div> 
+                        -->
+                  </div>
+                  <div class="modal-footer">
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+        </div>
+    </body>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>        
+<script src="{% static 'js/script.js' %}"></script>
+
+<script>
+    $(document).ready(function(){
+        userlogin();
+    })
+    function userlogin(){
+        $("#signup").modal('hide');
+        $("#login").modal('show');   
+    }
+    function signup(){
+        $("#login").modal('hide');   
+        $("#signup").modal('show');       
+    }
+</script>
+</html>
