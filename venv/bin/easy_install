@@ -1,4 +1,4 @@
-#!/home/steffy/Desktop/SecureHealth-master/venv/bin/python
+#!/home/steffy/Desktop/SecureHealth/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

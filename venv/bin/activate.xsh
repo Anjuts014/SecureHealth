@@ -28,7 +28,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"/home/steffy/Desktop/SecureHealth-master/venv"
+$VIRTUAL_ENV = r"/home/steffy/Desktop/SecureHealth/venv"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]

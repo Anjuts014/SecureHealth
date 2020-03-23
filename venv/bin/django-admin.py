@@ -1,4 +1,4 @@
-#!/home/steffy/Desktop/SecureHealth-master/venv/bin/python
+#!/home/steffy/Desktop/SecureHealth/venv/bin/python
 from django.core import management
 
 if __name__ == "__main__":

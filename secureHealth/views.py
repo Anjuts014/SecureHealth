@@ -241,10 +241,10 @@ def addPatient(request):
 
             pRD.first_name = enc_decr.encrypt(first_name)
             pRD.last_name = enc_decr.encrypt(last_name)
-            pRD.username = enc_decr.encrypt(username)
+            pRD.username = username
             pRD.email = enc_decr.encrypt(email)
-            pRD.password= enc_decr.encrypt(password)
-            pRD.confirm_Password = enc_decr.encrypt(confirm_Password)
+            pRD.password= password
+            pRD.confirm_Password = confirm_Password
             pRD.date_of_birth = date_of_birth
             pRD.address = enc_decr.encrypt(address)
             pRD.blood_group = enc_decr.encrypt(blood_group)
@@ -894,8 +894,8 @@ def login(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
-        patientLogin = patientRegistrationDatas.objects.all().filter(username=enc_decr.decrypt(username), password=enc_decr.decrypt(password))
-        print(enc_decr.decrypt(username))
+        patientLogin = patientRegistrationDatas.objects.all().filter(username=username, password=password)
+        
         if patientLogin:
             form = patientRecordForm()
             request.session['username']=username
