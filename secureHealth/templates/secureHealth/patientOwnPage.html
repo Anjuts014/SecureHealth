@@ -1,58 +1,58 @@
-{% extends 'secureHealth/basedoctor.html' %}
+{% extends 'secureHealth/basepatient.html' %}
 {% load static %}
 {% block content %}
 <div class="col-lg-8 offset-lg-2">
-    <h4 class="page-title">Doctor Profile</h4>
+    <h4 class="page-title">Patient Details</h4>
 </div>
 </div>
 <div class="row">
 <div class="col-lg-8 offset-lg-2">
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.errors}}
-
+        
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>First Name <span class="text-danger">*</span></label>
-                    <input class="form-control" name="first_name" readonly  value="{{doctor.first_name}}" type="text">
+                    <input class="form-control" name="first_name" value="{{patient_detail.first_name}}" type="text">
+                    
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input class="form-control" name="last_name" readonly value="{{doctor.last_name}}" type="text">
+                    <input class="form-control" name="last_name" value="{{patient_detail.last_name}}" type="text">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Username <span class="text-danger">*</span></label>
-                    <input class="form-control" name="username" readonly value="{{doctor.username}}" type="text">
+                    <input class="form-control"  name="username" value="{{patient_detail.username}}" type="text">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Email <span class="text-danger">*</span></label>
-                    <input class="form-control" name="email" readonly value="{{doctor.email}}" type="email">
+                    <input class="form-control" name="email" value="{{patient_detail.email}}" type="email">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Password</label>
-                    <input class="form-control" name="password" readonly value="{{doctor.password}}" type="password">
+                    <input class="form-control" name="password" value="{{patient_detail.password}}" type="password">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input class="form-control" name="confirm_Password" readonly value="{{doctor.password}}" type="password">
+                    <input class="form-control" name="confirm_Password" value="{{patient_detail.password}}"  type="password">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Date of Birth</label>
                     <div class="cal-icon">
-                        <input type="text" name="date_of_birth" readonly value="{{doctor.date_of_birth}}" class="form-control datetimepicker">
+                        <input type="text" name="date_of_birth" value="{{date_of_birth}}" class="form-control datetimepicker">
                     </div>
                 </div>
             </div>
@@ -61,12 +61,12 @@
                     <label class="gen-label">Gender:</label>
                     
                     <div class="form-check-inline">
-                        {% if doctor.gender == "male"%}
-                            <input type="radio" name="gender" class="form-check-input" value="male" checked>male
-                            <input type="radio" name="gender" class="form-check-input" value="female">female
+                        {% if patient_detail.gender == "male" %}
+                            <input type="radio" name="gender" value="male" class="form-check-input" checked>male
+                            <input type="radio" name="gender" value="female" class="form-check-input" >female
                         {% else %}
-                            <input type="radio" name="gender" class="form-check-input" value="male" >male
-                            <input type="radio" name="gender" class="form-check-input" value="female" checked>female
+                            <input type="radio" name="gender" value="female" class="form-check-input">male
+                            <input type="radio" name="gender" value="female" class="form-check-input" checked>female
                         {% endif %}
                     </div>
                 </div>
@@ -76,72 +76,77 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="text"  name="address" readonly value="{{doctor.address}}" class="form-control ">
+                            <input type="text" name="address" value="{{patient_detail.address}}"  class="form-control ">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label>Blood Group</label>
+                            <!-- <input type="text" name="blood_group" class="form-control"> -->
+                            <select name="blood_group"  value="{{patient_detail.blood_group}}" class="form-control">
+                                <option value="{{patient_detail.blood_group}}" selected>{{patient_detail.blood_group}}</option>
+                                <option value="O+ve">O+ve</option>
+                                <option value="O-ve">O-ve</option>
+                                <option value="A+ve">A+ve</option>
+                                <option value="A-ve">A-ve</option>
+                                <option value="B+ve">B+ve</option>
+                                <option value="B-ve">B-ve</option>
+                                <option value="AB+ve">AB+ve</option>
+                                <option value="AB-ve">AB-ve</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>Country</label>
-                            <input type="text"  name="country" readonly value="{{doctor.country}}" class="form-control ">
+                            <input type="text" name="country" value="{{patient_detail.country}}" class="form-control ">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>City</label>
-                            <input type="text" name="city" readonly value="{{doctor.city}}" class="form-control">
+                            <input type="text" name="city" value="{{patient_detail.city}}" class="form-control">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>State/Province</label>
-                            <input type="text" name="state" readonly value="{{doctor.state}}" class="form-control">
+                            <input type="text" name="state" value="{{patient_detail.state}}" class="form-control">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>District</label>
-                            <input type="text" name="district" readonly value="{{doctor.district}}" class="form-control">
+                            <input type="text" name="district" value="{{patient_detail.district}}" class="form-control">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>Postal Code</label>
-                            <input type="text" name="pincode" readonly value="{{doctor.pincode}}" class="form-control">
+                            <input type="text" name="pincode" value="{{patient_detail.pincode}}" class="form-control">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label>Phone number </label>
-                    <input class="form-control" readonly name="phone_number" value="{{doctor.phone_number}}" type="text">
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
                     <label>Mobile number </label>
-                    <input class="form-control" readonly name="mobile_number" value="{{doctor.mobile_number}}" type="text">
+                    <input class="form-control" name="mobile_number" value="{{patient_detail.mobile_number}}" type="text">
                 </div>
             </div>
-            
-        <div class="form-group">
-            <label>Specialization</label>
-            <input type="text" name="short_biography" readonly value="{{doctor.short_biography}}" class="form-control">
-        </div>
         <div class="form-group">
             <label class="display-block">Status</label>
             <div class="form-check-inline">
-                {% if doctor.status == "active" %}
+                {% if patient_detail.status == "active"%}
                     <input type="radio" name="status" class="form-check-input" value="active" checked>active
-                    <input type="radio" name="status" class="form-check-input" value="inactive">inactive
+                    <input type="radio" name="status"  class="form-check-input" value="inactive">inactive
                 {% else %}
-                    <input type="radio" name="status" class="form-check-input" value="active">active
+                    <input type="radio" name="status" class="form-check-input" value="active" >active
                     <input type="radio" name="status" class="form-check-input" value="inactive" checked>inactive
                 {% endif %}
             </div>
         </div>
-        
+       
     </form>
-</div>
 </div>
 {% endblock %}

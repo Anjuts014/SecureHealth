@@ -65,6 +65,8 @@ urlpatterns=[
     path('editpatientRecordInfo/<id>',views.editpatientRecordInfo,name="editpatientRecordInfo"),
     path('leaveinfo',views.leaveinfo,name="leaveinfo"),
     path('addleaveinfo',views.addleaveinfo,name="addleaveinfo"),
+    path('patientOwnPage',views.patientOwnPage,name="patientOwnPage"),
+    path('patientOwnRecord',views.patientOwnRecord,name="patientOwnRecord"),
     
 
 ]

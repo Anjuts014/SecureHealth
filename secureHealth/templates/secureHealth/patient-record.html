@@ -41,7 +41,7 @@
                 {% for patient in patient_data %}
                 <tr>
                     <td><img width="28" height="28" src="{% static 'assets2/img/user.jpg' %}" class="rounded-circle m-r-5" alt="">{{patient.name}}</td>
-                    <td>{{decrypt_data.1}}</td>
+                    <td>{{patient.blood_group}}</td>
                     <td>{{patient.age}}</td>
                     <td>{{patient.phone_number}}</td>
                     <td>{{patient.haemoglobin}}</td>

@@ -1,4 +1,4 @@
-{% extends 'secureHealth/base.html' %}
+{% extends 'secureHealth/basedoctor.html' %}
 {% load static %}
 {% block content %}
 <div class="col-lg-8 offset-lg-2">
@@ -82,7 +82,7 @@
                     <div class="col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label>Blood Group</label>
-                            <!-- <input type="text" name="blood_group" class="form-control"> -->
+                            
                             <select name="blood_group"  value="{{patient_detail.blood_group}}" class="form-control">
                                 <option value="{{patient_detail.blood_group}}" selected>{{patient_detail.blood_group}}</option>
                                 <option value="O+ve">O+ve</option>

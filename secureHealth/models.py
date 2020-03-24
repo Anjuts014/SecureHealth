@@ -50,6 +50,7 @@ class patientRegistrationDatas(models.Model):
     pincode = models.TextField()
     mobile_number = models.TextField()
     status = models.TextField()
+    doctor_name = models.TextField(default="Dr Anitha Samuel")
     hospital_name = models.TextField(default="cm hospital")
     class Meta:
         verbose_name_plural="Patient Registration Details"
@@ -78,6 +79,7 @@ class patientRecord(models.Model):
     potassium = models.TextField()
     sodium = models.TextField()
     message = models.TextField()
+    doctor_name =models.TextField(default="Dr Anitha Samuel")
     hospital_name = models.TextField(default="cm hospital")
     class Meta:
         verbose_name_plural="Patient Records"
