@@ -36,6 +36,16 @@ class registerForm(forms.Form):
         ('inactive', 'inactive'),
     )
     status =forms.ChoiceField(choices=STATUS_CHOICES, widget=forms.RadioSelect())
+    DOCTOR_CHOICES = (
+        ('dranitha12', 'Dr Anitha Samuel'),
+        ('drramesh23', 'Dr Ramesh Raj'),
+        ('drveena78', 'Dr Veena Madhavan'),
+        ('drrashmika235', 'Dr Rashmika Yash'),
+        ('drshanthi09', 'Dr shanthi Sarogam'),
+        ('drmathew89', 'Dr Mathew Vargheese'),
+    )
+    doctor = forms.CharField(label='Department', widget=forms.Select(choices=DOCTOR_CHOICES))
+    
     Hospital_CHOICES = (
         ('cm hospital', 'cm hospital'),
         ('kims hospital', 'kims hospital'),
@@ -119,6 +129,17 @@ class patientRecordForm(forms.Form):
         ('AB-ve', 'AB-ve'),
     ]
     blood_group = forms.CharField(label='Blood Group', widget=forms.Select(choices=choice))
+    DOCTOR_CHOICES = (
+        ('dranitha12', 'Dr Anitha Samuel'),
+        ('drramesh23', 'Dr Ramesh Raj'),
+        ('drveena78', 'Dr Veena Madhavan'),
+        ('drrashmika235', 'Dr Rashmika Yash'),
+        ('drshanthi09', 'Dr shanthi Sarogam'),
+        ('drmathew89', 'Dr Mathew Vargheese'),
+    )
+    doctor_name= forms.CharField(label='Department', widget=forms.Select(choices=DOCTOR_CHOICES))
+    
+    username = forms.CharField()
     Hospital_CHOICES = (
         ('cm hospital', 'cm hospital'),
         ('kims hospital', 'kims hospital'),

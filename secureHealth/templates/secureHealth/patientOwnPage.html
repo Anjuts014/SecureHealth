@@ -9,7 +9,7 @@
 <div class="col-lg-8 offset-lg-2">
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        
+      {% for patient_detail in patient_details %}  
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
@@ -45,14 +45,14 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input class="form-control" name="confirm_Password" value="{{patient_detail.password}}"  type="password">
+                    <input class="form-control" name="confirm_Password" value="{{patient_detail.confirm_Password}}"  type="password">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Date of Birth</label>
                     <div class="cal-icon">
-                        <input type="text" name="date_of_birth" value="{{date_of_birth}}" class="form-control datetimepicker">
+                        <input type="text" name="date_of_birth" value="{{patient_detail.date_of_birth}}" class="form-control datetimepicker">
                     </div>
                 </div>
             </div>
@@ -146,7 +146,7 @@
                 {% endif %}
             </div>
         </div>
-       
+       {% endfor %}
     </form>
 </div>
 {% endblock %}

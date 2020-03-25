@@ -61,6 +61,7 @@ class patientRegistrationDatas(models.Model):
 
 class patientRecord(models.Model):
     name = models.TextField()
+    username = models.TextField(default="shivajirm")
     blood_group= models.TextField()
     age =  models.TextField()
     phone_number =  models.TextField()

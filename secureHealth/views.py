@@ -57,7 +57,9 @@ def adminregistration(request):
 
 def doctors(request):
     hospital = request.session['hospital']
+    print(request.session['hospital'])
     doctor_details = doctorData.objects.filter(hospital_name=hospital)
+    print(hospital, doctor_details)
     return render(request,'secureHealth/doctors.html',{'doctors':doctor_details})
 
 def doctorpages(request):
@@ -900,14 +902,17 @@ def adminlogin(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
-        adminLogin = adminRegistrations.objects.all().filter(username=username, password=password)
-        for admin in adminLogin:
-            hospital = admin.hospital_name
-            print(hospital)
+        adminLogin = adminRegistrations.objects.get(username=username, password=password)
+        print(adminLogin.hospital_name)
+        hospital =adminLogin
+        # for admin in adminLogin:
+        #     hospital = admin.hospital_name
+        #     print(hospital)
         if adminLogin:
             form = adminRegistrationForm()
-            request.session.set_expiry(300)
-            request.session['hospital']=hospital
+            # request.session.set_expiry(3000)
+            request.session['hospital']=hospital.hospital_name
+            print(request.session['hospital'])
             patient_details = patientRegistrationDatas.objects.filter(hospital_name=hospital)[:3]
             doctor_details = doctorData.objects.filter(hospital_name=hospital)[:3]
             appointment_details = appointmentspage.objects.filter(hospital_name=hospital)[:3]
@@ -929,8 +934,8 @@ def login(request):
             form = patientRecordForm()
             request.session['username']=username
             user1 = request.session['username']
-            request.session.set_expiry(300)
-            return render(request,'secureHealth/patientOwnPage.html',{'form':form,'user1':user1})
+            # request.session.set_expiry(300)
+            return render(request,'secureHealth/patientindex.html',{'form':form,'user1':user1})
 
     return render(request,'secureHealth/userLoginpage.html')
 
@@ -1026,7 +1031,9 @@ def patientRecordpage(request):
             name = form.cleaned_data['name']
             blood_group = form.cleaned_data['blood_group']
             hospital_name = form.cleaned_data['hospital_name']
+            doctor_name = form.cleaned_data['doctor_name']
             age = form.cleaned_data['age']
+            username = form.cleaned_data['username']
             phone_number = form.cleaned_data['phone_number']
             haemoglobin = form.cleaned_data['haemoglobin']
             wbc = form.cleaned_data['wbc']
@@ -1048,8 +1055,10 @@ def patientRecordpage(request):
             
             pR.name = enc_decr.encrypt(name)
             pR.blood_group = enc_decr.encrypt(blood_group)
-            pR.hospital_name=hospital_name
+            pR.hospital_name = hospital_name
+            pR.doctor_name=doctor_name
             pR.age = enc_decr.encrypt(age)
+            pR.username = username
             pR.phone_number=enc_decr.encrypt(phone_number)
             pR.haemoglobin = enc_decr.encrypt(haemoglobin)
             pR.wbc =enc_decr.encrypt(wbc)
@@ -1073,8 +1082,7 @@ def patientRecordpage(request):
     return render(request,'secureHealth/add-patient-record.html',{'form':form})
 
 def patientRecordData(request):
-    hospital = request.session['hospital']
-    holiday_details = holidayData.objects.filter(hospital_name=hospital)
+    # hospital = request.session['hospital']
     patient_data = patientRecord.objects.all()
     patients = []
     for p in patient_data:
@@ -1140,6 +1148,7 @@ def addpatientRecordinfo(request):
             name = form.cleaned_data['name']
             blood_group = form.cleaned_data['blood_group']
             hospital_name = form.cleaned_data['hospital_name']
+            doctor_name = form.cleaned_data['doctor_name']
             age = form.cleaned_data['age']
             phone_number = form.cleaned_data['phone_number']
             haemoglobin = form.cleaned_data['haemoglobin']
@@ -1163,6 +1172,7 @@ def addpatientRecordinfo(request):
             pR.name = enc_decr.encrypt(name)
             pR.blood_group = enc_decr.encrypt(blood_group)
             pR.hospital_name = hospital_name
+            pR.doctor_name=doctor_name
             pR.age = enc_decr.encrypt(age)
             pR.phone_number=enc_decr.encrypt(phone_number)
             pR.haemoglobin = enc_decr.encrypt(haemoglobin)
@@ -1335,11 +1345,61 @@ def editpatientRecordInfo(request,id):
     return render(request,'secureHealth/edit-patient-record.html',{'patient':patient,'decrypt_data':decrypt_data})
 
 def patientOwnPage(request):
-    patient_details = patientRegistrationDatas.objects.all()
-    return render(request,'secureHealth/patientOwnPage.html',{'patient_detail':patient_details})
+    username =request.session.get('username','0')
+    patient_details = patientRegistrationDatas.objects.filter(username=username)
+    patients = []
+    for p in patient_details:
+        first_name =  enc_decr.decrypt(p.first_name)
+        last_name =  enc_decr.decrypt(p.last_name)
+        username = p.username
+        email =  enc_decr.decrypt(p.email)
+        password = p.password
+        confirm_Password =  p.password
+        blood_group = enc_decr.decrypt(p.blood_group)
+        date_of_birth = p.date_of_birth
+        gender =  enc_decr.decrypt(p.gender)
+        address =  enc_decr.decrypt(p.address)
+        country =  enc_decr.decrypt(p.country)
+        city =  enc_decr.decrypt(p.city)
+        state =  enc_decr.decrypt(p.state)
+        district =  enc_decr.decrypt(p.district)
+        pincode =  enc_decr.decrypt(p.pincode)
+        mobile_number=  enc_decr.decrypt(p.mobile_number)
+        status =  enc_decr.decrypt(p.status)
+        decrypt_data = {'blood_group':blood_group,'first_name':first_name,'last_name':last_name,'username':username,'email':email,'password':password,'confirm_Password':confirm_Password,'date_of_birth':date_of_birth,'gender':gender,'address':address,'country':country,'state':state,'district':district,'pincode':pincode,'city':city,'mobile_number':mobile_number,'status':status}
+        patients.append(decrypt_data)
+    return render(request,'secureHealth/patientOwnPage.html',{'patient_details':patients})
 
 def patientOwnRecord(request):
-    patient = patientRecord.objects.all()
-    return render(request,'secureHealth/patientOwnRecord.html',{'patient':patient})
+    username =request.session.get('username','0')
+    # patient = patientRecord.objects.filter(username=username)
+    patient_data = patientRecord.objects.filter(username=username)
+    print(patient_data)
+    # print(patient_data.age)
+    patients = []
+    for p in patient_data:
+        name =  enc_decr.decrypt(p.name)
+        blood_group =  enc_decr.decrypt(p.blood_group)
+        username = p.username
+        age =  enc_decr.decrypt(p.age)
+        phone_number= enc_decr.decrypt(p.phone_number)
+        haemoglobin =  enc_decr.decrypt(p.haemoglobin)
+        wbc = enc_decr.decrypt(p.wbc)
+        granulocyte =  enc_decr.decrypt(p.granulocyte)
+        neutrophils =  enc_decr.decrypt(p.neutrophils)
+        platelet_Count =  enc_decr.decrypt(p.platelet_Count)
+        cholestrol =  enc_decr.decrypt(p.cholestrol)
+        triglycerides =  enc_decr.decrypt(p.triglycerides)
+        tsh =  enc_decr.decrypt(p.tsh)
+        bilirubin_total =  enc_decr.decrypt(p.bilirubin_total)
+        globulins=  enc_decr.decrypt(p.globulins)
+        blood_urea =  enc_decr.decrypt(p.blood_urea)
+        albumin =  enc_decr.decrypt(p.albumin)
+        potassium =  enc_decr.decrypt(p.potassium)
+        sodium =  enc_decr.decrypt(p.sodium)
+        message =  enc_decr.decrypt(p.message)
+        decrypt_data = {'username':username,'name':name,'age':age,'blood_group':blood_group,'phone_number':phone_number,'haemoglobin':haemoglobin,'wbc':wbc,'granulocyte':granulocyte,'neutrophils':neutrophils,'platelet_Count':platelet_Count,'cholestrol':cholestrol,'triglycerides':triglycerides,'tsh':tsh,'bilirubin_total':bilirubin_total,'globulins':globulins,'blood_urea':blood_urea,'albumin':albumin,'potassium':potassium,'sodium':sodium,'message':message}
+        patients.append(decrypt_data)
+    return render(request,'secureHealth/patientOwnRecord.html',{'patient_datas':patients})
 
 

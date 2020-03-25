@@ -7,7 +7,7 @@
 </div>
 <div class="row">
 <div class="col-lg-8 offset-lg-2">
-    <form action="{% url 'patientRecordpage' %}" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
             {{form.errors}}
             <div class="col-sm-6">
@@ -25,6 +25,22 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
+                    <label>Username</label>
+                    <input class="form-control" name="username" type="text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Hospital name</label>
+                    <select class="select form-control" name="hospital_name">
+                        <option value="cm hospital">CM Hospital</option>
+                        <option value="kims hospital">Kims Hospital</option>
+                    </select>
+                        
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
                     <label>Blood Group</label>
                     
                     <select name="blood_group" class="form-control">
@@ -37,6 +53,20 @@
                         <option value="B-ve">B-ve</option>
                         <option value="AB+ve">AB+ve</option>
                         <option value="AB-ve">AB-ve</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Doctor</label>
+                    <select class="select form-control" name="doctor_name">
+                        <option>Select</option>
+                        <option value="dranitha12">Dr Anitha Samuel</option>
+                        <option value="drramesh23">Dr Ramesh Raj</option>
+                        <option value="drveena78">Dr Veena Madhavan</option>
+                        <option value="drrashmika235">Dr Rashmika Yash</option>
+                        <option value="drshanthi09">Dr shanthi Sarogam</option>
+                        <option value="drmathew89">Dr Mathew Vargheese</option>
                     </select>
                 </div>
             </div>
