@@ -1032,6 +1032,7 @@ def patientRecordpage(request):
             blood_group = form.cleaned_data['blood_group']
             hospital_name = form.cleaned_data['hospital_name']
             doctor_name = form.cleaned_data['doctor_name']
+            username = form.cleaned_data['username']
             age = form.cleaned_data['age']
             username = form.cleaned_data['username']
             phone_number = form.cleaned_data['phone_number']
@@ -1057,6 +1058,7 @@ def patientRecordpage(request):
             pR.blood_group = enc_decr.encrypt(blood_group)
             pR.hospital_name = hospital_name
             pR.doctor_name=doctor_name
+            pR.username = username
             pR.age = enc_decr.encrypt(age)
             pR.username = username
             pR.phone_number=enc_decr.encrypt(phone_number)
@@ -1149,6 +1151,7 @@ def addpatientRecordinfo(request):
             blood_group = form.cleaned_data['blood_group']
             hospital_name = form.cleaned_data['hospital_name']
             doctor_name = form.cleaned_data['doctor_name']
+            username = form.cleaned_data['username']
             age = form.cleaned_data['age']
             phone_number = form.cleaned_data['phone_number']
             haemoglobin = form.cleaned_data['haemoglobin']
@@ -1173,6 +1176,7 @@ def addpatientRecordinfo(request):
             pR.blood_group = enc_decr.encrypt(blood_group)
             pR.hospital_name = hospital_name
             pR.doctor_name=doctor_name
+            pR.username = username
             pR.age = enc_decr.encrypt(age)
             pR.phone_number=enc_decr.encrypt(phone_number)
             pR.haemoglobin = enc_decr.encrypt(haemoglobin)
