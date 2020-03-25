@@ -36,7 +36,12 @@ class registerForm(forms.Form):
         ('inactive', 'inactive'),
     )
     status =forms.ChoiceField(choices=STATUS_CHOICES, widget=forms.RadioSelect())
-
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
+    
     def clean_username(self):
         value = self.cleaned_data['username']
         if value.isupper():
@@ -75,6 +80,12 @@ class doctorDataForm(forms.Form):
     pincode = forms.CharField(widget=forms.NumberInput)
     mobile_number = forms.CharField(widget=forms.NumberInput)
     photo=forms.FileField()
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
+    
     STATUS_CHOICES = (
         ('active', 'active'),
         ('inactive', 'inactive'),
@@ -108,6 +119,12 @@ class patientRecordForm(forms.Form):
         ('AB-ve', 'AB-ve'),
     ]
     blood_group = forms.CharField(label='Blood Group', widget=forms.Select(choices=choice))
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
+    
     age = forms.CharField(widget=forms.NumberInput)
     phone_number = forms.CharField(widget=forms.NumberInput)
     haemoglobin = forms.CharField()
@@ -132,6 +149,12 @@ class adminRegistrationForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput)
     mobile_number = forms.CharField(widget=forms.NumberInput)
     password = forms.CharField(widget =forms.PasswordInput)
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
+    
 
     def clean_username(self):
         value = self.cleaned_data['username']
@@ -143,6 +166,12 @@ class adminRegistrationForm(forms.Form):
 class departmentForm(forms.Form):
     department_name = forms.CharField()
     message = forms.CharField(widget=forms.Textarea())
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
+    
     STATUS_CHOICES = (
         ('active', 'active'),
         ('inactive', 'inactive'),
@@ -188,18 +217,23 @@ class appointmentForm(forms.Form):
         )
     department = forms.CharField(label='Department', widget=forms.Select(choices=DEPARTMENT_CHOICES))
     DOCTOR_CHOICES = (
-        ('Dr Anitha Samuel', 'Dr Anitha Samuel'),
-        ('Dr Ramesh Raj', 'Dr Ramesh Raj'),
-        ('Dr Veena Madhavan', 'Dr Veena Madhavan'),
-        ('Dr Rashmika Yash', 'Dr Rashmika Yash'),
-        ('Dr shanthi Sarogam', 'Dr shanthi Sarogam'),
-        ('Dr Mathew Vargheese', 'Dr Mathew Vargheese'),
+        ('dranitha12', 'Dr Anitha Samuel'),
+        ('drramesh23', 'Dr Ramesh Raj'),
+        ('drveena78', 'Dr Veena Madhavan'),
+        ('drrashmika235', 'Dr Rashmika Yash'),
+        ('drshanthi09', 'Dr shanthi Sarogam'),
+        ('drmathew89', 'Dr Mathew Vargheese'),
     )
     doctor = forms.CharField(label='Department', widget=forms.Select(choices=DOCTOR_CHOICES))
     date = forms.DateField()
     time = forms.TimeField()
     patient_phone_number = forms.CharField(widget=forms.NumberInput)
     patient_email =  forms.EmailField(widget=forms.EmailInput)
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
     message = forms.CharField(widget=forms.Textarea())
     APPOINTMENT_STATUS_CHOICES = (
         ('active', 'active'),
@@ -217,15 +251,20 @@ class doctorScheduleForm(forms.Form):
     available_days = forms.CharField()
     start_time = forms.TimeField()
     DOCTOR_CHOICES = (
-        ('Dr Anitha Samuel', 'Dr Anitha Samuel'),
-        ('Dr Ramesh Raj', 'Dr Ramesh Raj'),
-        ('Dr Veena Madhavan', 'Dr Veena Madhavan'),
-        ('Dr Rashmika Yash', 'Dr Rashmika Yash'),
-        ('Dr shanthi Sarogam', 'Dr shanthi Sarogam'),
-        ('Dr Mathew Vargheese', 'Dr Mathew Vargheese'),
+        ('dranitha12', 'Dr Anitha Samuel'),
+        ('drramesh23', 'Dr Ramesh Raj'),
+        ('drveena78', 'Dr Veena Madhavan'),
+        ('drrashmika235', 'Dr Rashmika Yash'),
+        ('drshnthi09', 'Dr shanthi Sarogam'),
+        ('drmathew89', 'Dr Mathew Vargheese'),
     )
     doctor_name = forms.CharField(label='Doctor Name', widget=forms.Select(choices=DOCTOR_CHOICES))
     end_time = forms.TimeField()
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
     message = forms.CharField(widget=forms.Textarea())
     SCHEDULE_STATUS_CHOICES = (
         ('active', 'active'),
@@ -253,6 +292,12 @@ class employeeForm(forms.Form):
         ('Receptionist', 'Receptionist'),
     )
     role = forms.CharField(label='Role', widget=forms.Select(choices=ROLES_CHOICES))
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
+    
     STATUS_CHOICES = (
         ('active', 'active'),
         ('inactive', 'inactive'),
@@ -294,6 +339,12 @@ class leaveForm(forms.Form):
     leave_to = forms.DateField()
     number_of_days =  forms.CharField(widget=forms.NumberInput)
     remaining_leaves = forms.CharField(widget=forms.NumberInput)
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
+    
     leave_reason = forms.CharField(widget=forms.Textarea(attrs={'rows': 10,'cols': 20}))
 
 class holidayForm(forms.Form):
@@ -308,4 +359,10 @@ class holidayForm(forms.Form):
         ('Saturday', 'Saturday'),
     )
     holiday_day = forms.CharField(label='Role', widget=forms.Select(choices=HOLIDAY_CHOICES))
+    Hospital_CHOICES = (
+        ('cm hospital', 'cm hospital'),
+        ('kims hospital', 'kims hospital'),
+    )
+    hospital_name = forms.CharField(label='Hospital Name', widget=forms.Select(choices=Hospital_CHOICES))
+    
     holiday_date = forms.DateField()

@@ -34,6 +34,7 @@ def adminregistration(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             mobile_number = form.cleaned_data['mobile_number']
+            hospital_name = form.cleaned_data['hospital_name']
             password = form.cleaned_data['password']
             from_email='ecommercedvlpr@gmail.com'
 
@@ -42,6 +43,7 @@ def adminregistration(request):
             adminReg.username = username
             adminReg.email = email
             adminReg.mobile_number=mobile_number
+            adminReg.hospital_name = hospital_name
             adminReg.password= password
             adminReg.save()
             mail = EmailMessage("Admin Registration Verification","To confirm the admin request,details have been sent to the respective Hospital to verify the information.After that admin can login",from_email,[email])
@@ -56,7 +58,7 @@ def adminregistration(request):
 def doctors(request):
     hospital = request.session['hospital']
     doctor_details = doctorData.objects.filter(hospital_name=hospital)
-    return render(request,'secureHealth/doctors.html',{'doctors':doctor_details,'role':'admin'})
+    return render(request,'secureHealth/doctors.html',{'doctors':doctor_details})
 
 def doctorpages(request):
     doctor_name =request.session['doctor_name']
@@ -109,13 +111,13 @@ def editdoctor(request,id):
         doctor.save()
         return HttpResponse("successfully updated doctor") 
 
-    return render(request,'secureHealth/edit-doctor.html',{'doctor':doctor,'date_of_birth':date_of_birth,'role':'admin'})
+    return render(request,'secureHealth/edit-doctor.html',{'doctor':doctor,'date_of_birth':date_of_birth})
 
 def deletedoctor(request,id):
     doctor = doctorData.objects.get(id = id)
     doctor.delete()
     doctor_details = doctorData.objects.all()
-    return render(request,'secureHealth/doctors.html',{'doctors':doctor_details,'role':'admin'})
+    return render(request,'secureHealth/doctors.html',{'doctors':doctor_details})
 
 def profileDoctor(request):
     return render(request,'secureHealth/profile.html')
@@ -145,6 +147,7 @@ def adddoctor(request):
             pincode = form.cleaned_data['pincode']
             mobile_number = form.cleaned_data['mobile_number']
             phone_number = form.cleaned_data['phone_number']
+            hospital_name = form.cleaned_data['hospital_name']
             status = form.cleaned_data['status']
             short_biography = form.cleaned_data['short_biography']
 
@@ -167,6 +170,7 @@ def adddoctor(request):
             drData.pincode = pincode
             drData.status = status
             drData.mobile_number = mobile_number
+            drData.hospital_name=hospital_name
             drData.phone_number = phone_number
             drData.short_biography = short_biography
 
@@ -185,7 +189,7 @@ def adminIndex2(request):
     patient_details = patientRegistrationDatas.objects.all()[:3]
     doctor_details = doctorData.objects.all()[:3]
     appointment_details = appointmentspage.objects.all()[:3]
-    return render(request,'secureHealth/index-2.html',{'patients':patient_details,'doctors':doctor_details,'appointments':appointment_details,'role':'admin'})
+    return render(request,'secureHealth/index-2.html',{'patients':patient_details,'doctors':doctor_details,'appointments':appointment_details})
 
 def patientdetails(request):
     hospital = request.session['hospital']
@@ -208,13 +212,13 @@ def patientdetails(request):
         status= enc_decr.decrypt(patient_info.status)
         decrypt_patient_details = {'id':patient_info.id,'first_name':first_name,'last_name':last_name,'date_of_birth':date_of_birth,'blood_group':blood_group,'gender':gender,'country':country,'city':city,'state':state,'district':district,'pincode':pincode,'mobile_number':mobile_number,'status':status}
         patient_data.append(decrypt_patient_details)
-    return render(request,'secureHealth/patients.html',{'patients':patient_data,'role':'admin'})
+    return render(request,'secureHealth/patients.html',{'patients':patient_data})
 
 
 def patientinfo(request):
     doctor_name =request.session['doctor_name']
     patient_details = patientRegistrationDatas.objects.filter(doctor_name=doctor_name)
-    return render(request,'secureHealth/patient-1.html',{'patients':patient_details,'role':'doctor'})
+    return render(request,'secureHealth/patient-1.html',{'patients':patient_details})
 
 def addPatient(request):
     form = registerForm()
@@ -237,6 +241,7 @@ def addPatient(request):
             district = form.cleaned_data['district']
             pincode = form.cleaned_data['pincode']
             mobile_number = form.cleaned_data['mobile_number']
+            hospital_name = form.cleaned_data['hospital_name']
             status = form.cleaned_data['status']
 
             pRD = patientRegistrationDatas()
@@ -257,12 +262,13 @@ def addPatient(request):
             pRD.district = enc_decr.encrypt(district)
             pRD.pincode = enc_decr.encrypt(pincode)
             pRD.mobile_number = enc_decr.encrypt(mobile_number)
+            pRD.hospital_name= hospital_name
             pRD.status= enc_decr.encrypt(status)
 
             pRD.save()
             return HttpResponse("Registration form is submitted successfully")
 
-    return render(request,'secureHealth/add-patient.html',{'form':form,'role':'admin'})
+    return render(request,'secureHealth/add-patient.html',{'form':form})
 
 def editPatient(request,id):
     patient_detail = patientRegistrationDatas.objects.get(id=id)
@@ -330,7 +336,7 @@ def editPatient(request,id):
         patient_detail.save()
         return HttpResponse("Updated Patient Registration form successfully")
 
-    return render(request,'secureHealth/edit-patient.html',{'patient_detail':patient_detail,'date_of_birth':date_of_birth,'role':'admin','decrypt_info':decrypt_info})
+    return render(request,'secureHealth/edit-patient.html',{'patient_detail':patient_detail,'date_of_birth':date_of_birth,'decrypt_info':decrypt_info})
 
 def viewpatient(request,id):
     patient_detail = patientRegistrationDatas.objects.get(id=id)
@@ -370,7 +376,7 @@ def viewpatient(request,id):
         patient_detail.pincode = pincode
         patient_detail.mobile_number = mobile_number
         patient_detail.status= status
-    return render(request,'secureHealth/view-1.html',{'patient_detail':patient_detail,'role':'doctor'})
+    return render(request,'secureHealth/view-1.html',{'patient_detail':patient_detail})
 
 
 def deletepatient(request,id):
@@ -392,6 +398,7 @@ def addAppointment(request):
             time = form.cleaned_data['time']
             patient_phone_number = form.cleaned_data['patient_phone_number']
             patient_email = form.cleaned_data['patient_email']
+            hospital_name = form.cleaned_data['hospital_name']
             message = form.cleaned_data['message']
             appointment_status = form.cleaned_data['appointment_status']
         
@@ -405,6 +412,7 @@ def addAppointment(request):
             appointments.time = time
             appointments.patient_phone_number = patient_phone_number
             appointments.patient_email = patient_email
+            appointments.hospital_name = hospital_name
             appointments.message = message
             appointments.appointment_status = appointment_status
             appointments.save()
@@ -415,7 +423,7 @@ def addAppointment(request):
 def appointment(request):
     hospital = request.session['hospital']
     appointment_details = appointmentspage.objects.filter(hospital_name=hospital)
-    return render(request,'secureHealth/appointments.html',{'appointments': appointment_details,'role':'admin'})
+    return render(request,'secureHealth/appointments.html',{'appointments': appointment_details})
 
 def editappointment(request,id):
     appointment_data = appointmentspage.objects.get(id=id)
@@ -448,7 +456,7 @@ def editappointment(request,id):
         appointment_data.save()
         return HttpResponse("Appointments updated successfully")
 
-    return render(request,'secureHealth/edit-appointment.html',{'appointment_data':appointment_data,'date':date,'time':time,'role':'admin'})
+    return render(request,'secureHealth/edit-appointment.html',{'appointment_data':appointment_data,'date':date,'time':time})
 
 def deleteappointment(request,id):
     appointment_data = appointmentspage.objects.get(id=id)
@@ -459,7 +467,7 @@ def deleteappointment(request,id):
 def schedule(request):
     hospital = request.session['hospital']
     schedule_details = doctorSchedule.objects.filter(hospital_name=hospital)
-    return render(request,'secureHealth/schedule.html',{'schedule_assigned':schedule_details,'role':'admin'})
+    return render(request,'secureHealth/schedule.html',{'schedule_assigned':schedule_details})
 
 def addschedule(request):
     form = doctorScheduleForm()
@@ -470,6 +478,7 @@ def addschedule(request):
             available_days = form.cleaned_data['available_days']
             start_time = form.cleaned_data['start_time']
             end_time = form.cleaned_data['end_time']
+            hospital_name = form.cleaned_data['hospital_name']
             message = form.cleaned_data['message']
             schedule_status = form.cleaned_data['schedule_status']
     
@@ -479,11 +488,12 @@ def addschedule(request):
             doctorScheduledata.available_days = available_days
             doctorScheduledata.start_time = start_time
             doctorScheduledata.end_time = end_time
+            doctorScheduledata.hospital_name =hospital_name
             doctorScheduledata.message = message
             doctorScheduledata.schedule_status = schedule_status
             doctorScheduledata.save()
             return HttpResponse("Doctor schedule have been successfully added")
-    return render(request,'secureHealth/add-schedule.html',{'form':form,'role':'admin'})
+    return render(request,'secureHealth/add-schedule.html',{'form':form})
 
 def editschedule(request,id):
     schedule_data = doctorSchedule.objects.get(id=id)
@@ -509,7 +519,7 @@ def editschedule(request,id):
         schedule_data.save()
         return HttpResponse("Doctor schedule updated successfully ")
 
-    return render(request,'secureHealth/edit-schedule.html',{'schedule_data':schedule_data,'start_time':start_time,'end_time':end_time,'role':'admin'})
+    return render(request,'secureHealth/edit-schedule.html',{'schedule_data':schedule_data,'start_time':start_time,'end_time':end_time})
 
 
 def deleteschedule(request,id):
@@ -521,7 +531,7 @@ def deleteschedule(request,id):
 def departments(request):
     hospital = request.session['hospital']
     department_details = departmentData.objects.filter(hospital_name=hospital)
-    return render(request,'secureHealth/departments.html',{'departments':department_details,'role':'admin'})
+    return render(request,'secureHealth/departments.html',{'departments':department_details})
 
 def adddepartment(request):
     form = departmentForm()
@@ -530,16 +540,18 @@ def adddepartment(request):
         if form.is_valid():
             department_name = form.cleaned_data['department_name']
             message = form.cleaned_data['message']
+            hospital_name = form.cleaned_data['hospital_name']
             status = form.cleaned_data['status']
-    
+
             departmentAdded = departmentData()
 
             departmentAdded.department_name = department_name
             departmentAdded.message = message
+            departmentAdded.hospital_name = hospital_name
             departmentAdded.status = status
             departmentAdded.save()
             return HttpResponse("Departments are added successfully ")
-    return render(request,'secureHealth/add-department.html',{'form':form,'role':'admin'})
+    return render(request,'secureHealth/add-department.html',{'form':form})
 
 def editdepartment(request,id):
     department = departmentData.objects.get(id=id)
@@ -554,7 +566,7 @@ def editdepartment(request,id):
         department.save()
         return HttpResponse("Departments are added successfully ")
 
-    return render(request,'secureHealth/edit-department.html',{'department':department,'role':'admin'})
+    return render(request,'secureHealth/edit-department.html',{'department':department})
 
 def deletedepartment(request,id):
     department = departmentData.objects.get(id=id)
@@ -568,7 +580,7 @@ def chat(request):
 def employees(request):
     hospital = request.session['hospital']
     employee_details = employeeAdd.objects.filter(hospital_name=hospital)
-    return render(request,'secureHealth/employees.html',{'employees':employee_details,'role':'admin'})
+    return render(request,'secureHealth/employees.html',{'employees':employee_details})
 
 def addemployee(request):
     form = employeeForm()
@@ -585,6 +597,7 @@ def addemployee(request):
             joining_date = form.cleaned_data['joining_date']
             phone_number = form.cleaned_data['phone_number']
             role = form.cleaned_data['role']
+            hospital_name = form.cleaned_data['hospital_name']
             status = form.cleaned_data['status']
             
             employeedata = employeeAdd()
@@ -599,12 +612,13 @@ def addemployee(request):
             employeedata.joining_date = joining_date
             employeedata.phone_number = phone_number
             employeedata.role = role
+            employeedata.hospital_name = hospital_name
             employeedata.status = status
             employeedata.save()
             return HttpResponse("Employees are added successfully ")
     
 
-    return render(request,'secureHealth/add-employee.html',{'form':form,'role':'admin'})
+    return render(request,'secureHealth/add-employee.html',{'form':form})
 
 def editemployee(request,id):
     employee = employeeAdd.objects.get(id = id)
@@ -637,7 +651,7 @@ def editemployee(request,id):
         employee.save()
         return HttpResponse("Employees are updated successfully ")
 
-    return render(request,'secureHealth/edit-employee.html',{'employee':employee,'joining_date':joining_date,'role':'admin'})
+    return render(request,'secureHealth/edit-employee.html',{'employee':employee,'joining_date':joining_date})
 
 def deleteemployee(request,id):
     employee = employeeAdd.objects.get(id = id)
@@ -650,11 +664,11 @@ def deleteemployee(request,id):
 def leaves(request):
     hospital = request.session['hospital']
     leave_details = leaveData.objects.filter(hospital_name=hospital)
-    return render(request,'secureHealth/leaves.html',{'leaves':leave_details,'role':'admin'})
+    return render(request,'secureHealth/leaves.html',{'leaves':leave_details})
 
 def leaveinfo(request):
     leave_details = leaveData.objects.all()
-    return render(request,'secureHealth/leave-1.html',{'leaves':leave_details,'role':'doctor'})
+    return render(request,'secureHealth/leave-1.html',{'leaves':leave_details})
 
 def addleave(request):
     form = leaveForm()
@@ -668,6 +682,7 @@ def addleave(request):
             leave_to = form.cleaned_data['leave_to']
             number_of_days = form.cleaned_data['number_of_days']
             remaining_leaves = form.cleaned_data['remaining_leaves']
+            hospital_name = form.cleaned_data['hospital_name']
             leave_reason = form.cleaned_data['leave_reason']
 
             leaveRecord = leaveData()
@@ -679,11 +694,12 @@ def addleave(request):
             leaveRecord.leave_to = leave_to
             leaveRecord.number_of_days = number_of_days
             leaveRecord.remaining_leaves = remaining_leaves
+            leaveRecord.hospital_name = hospital_name
             leaveRecord.leave_reason = leave_reason
             leaveRecord.save()
             return HttpResponse("Leave request sent successfully")
 
-    return render(request,'secureHealth/add-leave.html',{'form':form,'role':'admin'})
+    return render(request,'secureHealth/add-leave.html',{'form':form})
 
 def addleaveinfo(request):
     form = leaveForm()
@@ -697,6 +713,7 @@ def addleaveinfo(request):
             leave_to = form.cleaned_data['leave_to']
             number_of_days = form.cleaned_data['number_of_days']
             remaining_leaves = form.cleaned_data['remaining_leaves']
+            hospital_name = form.cleaned_data['hospital_name']
             leave_reason = form.cleaned_data['leave_reason']
 
             leaveRecord = leaveData()
@@ -709,10 +726,11 @@ def addleaveinfo(request):
             leaveRecord.number_of_days = number_of_days
             leaveRecord.remaining_leaves = remaining_leaves
             leaveRecord.leave_reason = leave_reason
+            leaveRecord.hospital_name = hospital_name
             leaveRecord.save()
             return HttpResponse("Leave request sent successfully")
 
-    return render(request,'secureHealth/add-leave-1.html',{'form':form,'role':'doctor'})
+    return render(request,'secureHealth/add-leave-1.html',{'form':form})
 
 
 
@@ -749,7 +767,7 @@ def editleave(request,id):
         leave.save()
         return HttpResponse("Leave request updated successfully")
 
-    return render(request,'secureHealth/edit-leave.html',{'leave':leave,'leave_from':leave_from,"leave_to":leave_to,'role':'admin'})
+    return render(request,'secureHealth/edit-leave.html',{'leave':leave,'leave_from':leave_from,"leave_to":leave_to})
 
 def deleteleave(request,id):
     leave = leaveData.objects.get(id = id)
@@ -769,6 +787,7 @@ def doctorleave(request):
             leave_to = form.cleaned_data['leave_to']
             number_of_days = form.cleaned_data['number_of_days']
             remaining_leaves = form.cleaned_data['remaining_leaves']
+            hospital_name = form.cleaned_data['hospital_name']
             leave_reason = form.cleaned_data['leave_reason']
 
             leaveRecord = leaveData()
@@ -781,6 +800,7 @@ def doctorleave(request):
             leaveRecord.number_of_days = number_of_days
             leaveRecord.remaining_leaves = remaining_leaves
             leaveRecord.leave_reason = leave_reason
+            leaveRecord.hospital_name = hospital_name
             leaveRecord.save()
             return HttpResponse("Leave request sent successfully")
 
@@ -789,7 +809,7 @@ def doctorleave(request):
 def holidays(request):
     hospital = request.session['hospital']
     holiday_details = holidayData.objects.filter(hospital_name=hospital)
-    return render(request,'secureHealth/holidays.html',{'holidays':holiday_details,'role':'admin'})
+    return render(request,'secureHealth/holidays.html',{'holidays':holiday_details})
 
 def addholiday(request):
     form = holidayForm()
@@ -799,17 +819,18 @@ def addholiday(request):
             holiday_name = form.cleaned_data['holiday_name']
             holiday_day = form.cleaned_data['holiday_day']
             holiday_date = form.cleaned_data['holiday_date']
-           
+            hospital_name = form.cleaned_data['hospital_name']
+
             holidayInfo = holidayData()
 
             holidayInfo.holiday_name = holiday_name
             holidayInfo.holiday_day = holiday_day
             holidayInfo.holiday_date = holiday_date
-            
+            holidayInfo.hospital_name = hospital_name
             holidayInfo.save()
             return HttpResponse("Holiday Infomation successfully added")
 
-    return render(request,'secureHealth/add-holiday.html',{'form':form,'role':'admin'})
+    return render(request,'secureHealth/add-holiday.html',{'form':form})
 
 def editholiday(request,id):
     holiday = holidayData.objects.get(id = id)
@@ -831,7 +852,7 @@ def deleteholiday(request,id):
     holiday = holidayData.objects.get(id = id)
     holiday.delete()
     holiday_details = holidayData.objects.all()
-    return render(request,'secureHealth/holidays.html',{'holidays':holiday_details,'role':'admin'})
+    return render(request,'secureHealth/holidays.html',{'holidays':holiday_details})
 
 def attendance(request):
     return render(request,'secureHealth/attendance.html')
@@ -872,7 +893,7 @@ def settings(request):
             settings1.save()
             return HttpResponse("successfully saved the Hospital details")
 
-    return render(request,'secureHealth/settings.html',{'form':form,'role':'admin'})
+    return render(request,'secureHealth/settings.html',{'form':form})
 
 def adminlogin(request):
     
@@ -890,7 +911,7 @@ def adminlogin(request):
             patient_details = patientRegistrationDatas.objects.filter(hospital_name=hospital)[:3]
             doctor_details = doctorData.objects.filter(hospital_name=hospital)[:3]
             appointment_details = appointmentspage.objects.filter(hospital_name=hospital)[:3]
-            return render(request,'secureHealth/index-2.html',{'form':form ,'role':'admin','patients':patient_details,'doctors':doctor_details,'appointments':appointment_details,'role':'admin'})
+            return render(request,'secureHealth/index-2.html',{'form':form,'patients':patient_details,'doctors':doctor_details,'appointments':appointment_details})
      
     return render(request,'secureHealth/login.html')
 
@@ -967,6 +988,7 @@ def registrationpage(request):
             district = form.cleaned_data['district']
             pincode = form.cleaned_data['pincode']
             mobile_number = form.cleaned_data['mobile_number']
+            hospital_name = form.cleaned_data['hospital_name']
             status = form.cleaned_data['status']
 
             pRD = patientRegistrationDatas()
@@ -987,12 +1009,13 @@ def registrationpage(request):
             pRD.district = enc_decr.encrypt(district)
             pRD.pincode = enc_decr.encrypt(pincode)
             pRD.mobile_number = enc_decr.encrypt(mobile_number)
+            pRD.hospital_name = hospital_name
             pRD.status= enc_decr.encrypt(status)
 
             pRD.save()
             return HttpResponse("Registration form is submitted successfully")
         
-    return render(request,'secureHealth/registration.html',{'form':form,'role':'admin'})
+    return render(request,'secureHealth/registration.html',{'form':form})
 
 
 def patientRecordpage(request):
@@ -1002,6 +1025,7 @@ def patientRecordpage(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             blood_group = form.cleaned_data['blood_group']
+            hospital_name = form.cleaned_data['hospital_name']
             age = form.cleaned_data['age']
             phone_number = form.cleaned_data['phone_number']
             haemoglobin = form.cleaned_data['haemoglobin']
@@ -1024,6 +1048,7 @@ def patientRecordpage(request):
             
             pR.name = enc_decr.encrypt(name)
             pR.blood_group = enc_decr.encrypt(blood_group)
+            pR.hospital_name=hospital_name
             pR.age = enc_decr.encrypt(age)
             pR.phone_number=enc_decr.encrypt(phone_number)
             pR.haemoglobin = enc_decr.encrypt(haemoglobin)
@@ -1048,6 +1073,8 @@ def patientRecordpage(request):
     return render(request,'secureHealth/add-patient-record.html',{'form':form})
 
 def patientRecordData(request):
+    hospital = request.session['hospital']
+    holiday_details = holidayData.objects.filter(hospital_name=hospital)
     patient_data = patientRecord.objects.all()
     patients = []
     for p in patient_data:
@@ -1073,12 +1100,11 @@ def patientRecordData(request):
         decrypt_data = {'id':p.id,'name':name,'age':age,'blood_group':blood_group,'phone_number':phone_number,'haemoglobin':haemoglobin,'wbc':wbc,'granulocyte':granulocyte,'neutrophils':neutrophils,'platelet_Count':platelet_Count,'cholestrol':cholestrol,'triglycerides':triglycerides,'tsh':tsh,'bilirubin_total':bilirubin_total,'globulins':globulins,'blood_urea':blood_urea,'albumin':albumin,'potassium':potassium,'sodium':sodium,'message':message}
         # insert/append decrypt_data(dictionary) into patients(list/tuple)
         patients.append(decrypt_data)
-    return render(request,'secureHealth/patient-record.html',{'patient_data':patients,'role':'admin'})
+    return render(request,'secureHealth/patient-record.html',{'patient_data':patients})
 
 
 def patientRecordinfo(request):
     doctor_name =request.session['doctor_name']
-    # patient_details = patientRegistrationDatas.objects.filter(doctor_name=doctor_name)
     patient_data = patientRecord.objects.filter(doctor_name=doctor_name)
     patients = []
     for p in patient_data:
@@ -1104,7 +1130,62 @@ def patientRecordinfo(request):
         decrypt_data = {'id':p.id,'name':name,'age':age,'blood_group':blood_group,'phone_number':phone_number,'haemoglobin':haemoglobin,'wbc':wbc,'granulocyte':granulocyte,'neutrophils':neutrophils,'platelet_Count':platelet_Count,'cholestrol':cholestrol,'triglycerides':triglycerides,'tsh':tsh,'bilirubin_total':bilirubin_total,'globulins':globulins,'blood_urea':blood_urea,'albumin':albumin,'potassium':potassium,'sodium':sodium,'message':message}
         # insert/append decrypt_data(dictionary) into patients(list/tuple)
         patients.append(decrypt_data)
-    return render(request,'secureHealth/patient-record-1.html',{'patient_data':patients,'role':'doctor','decrypt_data':decrypt_data})
+    return render(request,'secureHealth/patient-record-1.html',{'patient_data':patients})
+
+def addpatientRecordinfo(request):
+    form = patientRecordForm()
+    if request.method == "POST":
+        form = patientRecordForm(request.POST,request.FILES)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            blood_group = form.cleaned_data['blood_group']
+            hospital_name = form.cleaned_data['hospital_name']
+            age = form.cleaned_data['age']
+            phone_number = form.cleaned_data['phone_number']
+            haemoglobin = form.cleaned_data['haemoglobin']
+            wbc = form.cleaned_data['wbc']
+            granulocyte = form.cleaned_data['granulocyte']
+            neutrophils = form.cleaned_data['neutrophils']
+            platelet_Count = form.cleaned_data['platelet_Count']
+            cholestrol = form.cleaned_data['cholestrol']
+            triglycerides = form.cleaned_data['triglycerides']
+            tsh = form.cleaned_data['tsh']
+            bilirubin_total = form.cleaned_data['bilirubin_total']
+            globulins = form.cleaned_data['globulins']
+            blood_urea = form.cleaned_data['blood_urea']
+            albumin = form.cleaned_data['albumin']
+            potassium = form.cleaned_data['potassium']
+            sodium = form.cleaned_data['sodium']
+            message = form.cleaned_data['message']
+
+            pR = patientRecord()
+            
+            pR.name = enc_decr.encrypt(name)
+            pR.blood_group = enc_decr.encrypt(blood_group)
+            pR.hospital_name = hospital_name
+            pR.age = enc_decr.encrypt(age)
+            pR.phone_number=enc_decr.encrypt(phone_number)
+            pR.haemoglobin = enc_decr.encrypt(haemoglobin)
+            pR.wbc =enc_decr.encrypt(wbc)
+            pR.granulocyte = enc_decr.encrypt(granulocyte)
+            pR.neutrophils = enc_decr.encrypt(neutrophils)
+            pR.platelet_Count = enc_decr.encrypt(platelet_Count)
+            pR.cholestrol = enc_decr.encrypt(cholestrol)
+            pR.triglycerides = enc_decr.encrypt(triglycerides)
+            pR.tsh = enc_decr.encrypt(tsh)
+            pR.bilirubin_total = enc_decr.encrypt(bilirubin_total)
+            pR.globulins= enc_decr.encrypt(globulins)
+            pR.blood_urea = enc_decr.encrypt(blood_urea)
+            pR.albumin = enc_decr.encrypt(albumin)
+            pR.potassium = enc_decr.encrypt(potassium)
+            pR.sodium = enc_decr.encrypt(sodium)
+            pR.message = enc_decr.encrypt(message)
+            pR.save()
+            return HttpResponse("Patient records are submitted")
+        # else:
+        # 	return HttpResponse(form.errors)
+    return render(request,'secureHealth/add-patient-record-1.html',{'form':form})
+
 
 
 def editpatientRecord(request,id):
@@ -1174,13 +1255,13 @@ def editpatientRecord(request,id):
         patient.save()
         return HttpResponse("Patient record updated successfully")
 
-    return render(request,'secureHealth/edit-patient-record.html',{'patient':patient,'role':'admin','decrypt_data':decrypt_data})
+    return render(request,'secureHealth/edit-patient-record.html',{'patient':patient,'decrypt_data':decrypt_data})
 
 def deletepatientRecord(request,id):
     patient = patientRecord.objects.get(id = id)
     patient.delete()
     patient_data = patientRecord.objects.all()
-    return render(request,'secureHealth/patient-record.html',{'patient_data':patient_data,'role':'admin'})
+    return render(request,'secureHealth/patient-record.html',{'patient_data':patient_data})
 
 
 
@@ -1251,7 +1332,7 @@ def editpatientRecordInfo(request,id):
         patient.save()
         return HttpResponse("Patient record updated successfully")
 
-    return render(request,'secureHealth/edit-patient-record.html',{'patient':patient,'decrypt_data':decrypt_data,'role':'admin'})
+    return render(request,'secureHealth/edit-patient-record.html',{'patient':patient,'decrypt_data':decrypt_data})
 
 def patientOwnPage(request):
     patient_details = patientRegistrationDatas.objects.all()

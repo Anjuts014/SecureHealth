@@ -67,6 +67,6 @@ urlpatterns=[
     path('addleaveinfo',views.addleaveinfo,name="addleaveinfo"),
     path('patientOwnPage',views.patientOwnPage,name="patientOwnPage"),
     path('patientOwnRecord',views.patientOwnRecord,name="patientOwnRecord"),
-    
+    path('addpatientRecordinfo',views.addpatientRecordinfo,name="addpatientRecordinfo"),
 
 ]

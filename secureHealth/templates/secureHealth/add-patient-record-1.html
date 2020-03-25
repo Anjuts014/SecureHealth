@@ -1,0 +1,166 @@
+{% extends 'secureHealth/basedoctor.html' %}
+{% load static %}
+{% block content %}
+<div class="col-lg-8 offset-lg-2">
+    <h4 class="page-title">Add Patient Record</h4>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-8 offset-lg-2">
+    <form action="{% url 'patientRecordpage' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            {{form.errors}}
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Name <span class="text-danger">*</span></label>
+                    <input class="form-control" name="name" type="text">
+                    
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Age</label>
+                    <input class="form-control" name="age" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Blood Group</label>
+                    
+                    <select name="blood_group" class="form-control">
+                        <option></option>
+                        <option value="O+ve">O+ve</option>
+                        <option value="O-ve">O-ve</option>
+                        <option value="A+ve">A+ve</option>
+                        <option value="A-ve">A-ve</option>
+                        <option value="B+ve">B+ve</option>
+                        <option value="B-ve">B-ve</option>
+                        <option value="AB+ve">AB+ve</option>
+                        <option value="AB-ve">AB-ve</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Phone_number <span class="text-danger">*</span></label>
+                    <input class="form-control" name="phone_number" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Haemoglobin <span class="text-danger">*</span></label>
+                    <input class="form-control" name="haemoglobin" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>WBC</label>
+                    <input class="form-control" name="wbc" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Granulocyte</label>
+                    <input class="form-control" name="granulocyte" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Neutrophils</label>
+                    <div class="cal-icon">
+                        <input type="text" name="neutrophils" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Platelet Count</label>
+                    <div class="cal-icon">
+                        <input type="text" name="platelet_Count" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Cholestrol</label>
+                    <div class="cal-icon">
+                        <input type="text" name="cholestrol" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Triglycerides</label>
+                    <div class="cal-icon">
+                        <input type="text" name="triglycerides" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Neutrophils</label>
+                    <div class="cal-icon">
+                        <input type="text" name="neutrophils" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>TSH</label>
+                    <div class="cal-icon">
+                        <input type="text" name="tsh" class="form-control">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Bilirubin Total</label>
+                    <input class="form-control" name="bilirubin_total" type="text">
+                </div>
+            </div>
+        
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Globulins</label>
+                    <input class="form-control" name="globulins" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Blood urea</label>
+                    <input class="form-control" name="blood_urea" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Albumin</label>
+                    <input class="form-control" name="albumin" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Potassium</label>
+                    <input class="form-control" name="potassium" type="text">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Sodium</label>
+                    <input class="form-control" name="sodium" type="text">
+                </div>
+            </div>
+            
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Message</label>
+                    <input class="form-control" name="message" type="text">
+                </div>
+            </div>
+        <div class="m-t-20 text-center">
+            <input type="submit"  class="btn btn-primary submit-btn" value="Save">
+            
+        </div>
+    </form>
+</div>
+{% endblock %}
