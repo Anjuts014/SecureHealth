@@ -44,7 +44,7 @@ class registerForm(forms.Form):
         ('drshanthi09', 'Dr shanthi Sarogam'),
         ('drmathew89', 'Dr Mathew Vargheese'),
     )
-    doctor = forms.CharField(label='Department', widget=forms.Select(choices=DOCTOR_CHOICES))
+    doctor_name = forms.CharField(label='Department', widget=forms.Select(choices=DOCTOR_CHOICES))
     
     Hospital_CHOICES = (
         ('cm hospital', 'cm hospital'),

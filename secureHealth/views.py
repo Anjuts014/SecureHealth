@@ -212,7 +212,7 @@ def patientdetails(request):
         pincode = enc_decr.decrypt(patient_info.pincode)
         mobile_number = enc_decr.decrypt(patient_info.mobile_number)
         status= enc_decr.decrypt(patient_info.status)
-        decrypt_patient_details = {'id':patient_info.id,'first_name':first_name,'last_name':last_name,'date_of_birth':date_of_birth,'blood_group':blood_group,'gender':gender,'country':country,'city':city,'state':state,'district':district,'pincode':pincode,'mobile_number':mobile_number,'status':status}
+        decrypt_patient_details = {'id':patient_info.id,'email':email,'first_name':first_name,'last_name':last_name,'date_of_birth':date_of_birth,'blood_group':blood_group,'gender':gender,'country':country,'city':city,'state':state,'district':district,'pincode':pincode,'mobile_number':mobile_number,'status':status}
         patient_data.append(decrypt_patient_details)
     return render(request,'secureHealth/patients.html',{'patients':patient_data})
 
@@ -220,7 +220,24 @@ def patientdetails(request):
 def patientinfo(request):
     doctor_name =request.session['doctor_name']
     patient_details = patientRegistrationDatas.objects.filter(doctor_name=doctor_name)
-    return render(request,'secureHealth/patient-1.html',{'patients':patient_details})
+    patient_data = []
+    for patient_info in patient_details:
+        first_name = enc_decr.decrypt(patient_info.first_name)
+        last_name = enc_decr.decrypt(patient_info.last_name)
+        email = enc_decr.decrypt(patient_info.email)
+        date_of_birth = patient_info.date_of_birth
+        blood_group = enc_decr.decrypt(patient_info.blood_group)
+        gender = enc_decr.decrypt(patient_info.gender)
+        country = enc_decr.decrypt(patient_info.country)
+        city = enc_decr.decrypt(patient_info.city)
+        state = enc_decr.decrypt(patient_info.state)
+        district = enc_decr.decrypt(patient_info.district)
+        pincode = enc_decr.decrypt(patient_info.pincode)
+        mobile_number = enc_decr.decrypt(patient_info.mobile_number)
+        status= enc_decr.decrypt(patient_info.status)
+        decrypt_patient_details = {'id':patient_info.id,'email':email,'first_name':first_name,'last_name':last_name,'date_of_birth':date_of_birth,'blood_group':blood_group,'gender':gender,'country':country,'city':city,'state':state,'district':district,'pincode':pincode,'mobile_number':mobile_number,'status':status}
+        patient_data.append(decrypt_patient_details)
+    return render(request,'secureHealth/patient-1.html',{'patients':patient_data})
 
 def addPatient(request):
     form = registerForm()
@@ -244,6 +261,7 @@ def addPatient(request):
             pincode = form.cleaned_data['pincode']
             mobile_number = form.cleaned_data['mobile_number']
             hospital_name = form.cleaned_data['hospital_name']
+            doctor_name = form.cleaned_data['doctor_name']
             status = form.cleaned_data['status']
 
             pRD = patientRegistrationDatas()
@@ -265,6 +283,7 @@ def addPatient(request):
             pRD.pincode = enc_decr.encrypt(pincode)
             pRD.mobile_number = enc_decr.encrypt(mobile_number)
             pRD.hospital_name= hospital_name
+            pRD.doctor_name= doctor_name
             pRD.status= enc_decr.encrypt(status)
 
             pRD.save()
@@ -954,7 +973,7 @@ def doctorLogin(request):
             form = doctorDataForm()
             request.session['username']=username
             user2 = request.session['username']
-            request.session.set_expiry(300)
+            # request.session.set_expiry(300)
             # hospital=doctorLogin.hospital_name
             # request.session['hospital']=hospital
             request.session['doctor_name']=username
@@ -994,6 +1013,7 @@ def registrationpage(request):
             pincode = form.cleaned_data['pincode']
             mobile_number = form.cleaned_data['mobile_number']
             hospital_name = form.cleaned_data['hospital_name']
+            doctor_name = form.cleaned_data['doctor_name']
             status = form.cleaned_data['status']
 
             pRD = patientRegistrationDatas()
@@ -1015,6 +1035,7 @@ def registrationpage(request):
             pRD.pincode = enc_decr.encrypt(pincode)
             pRD.mobile_number = enc_decr.encrypt(mobile_number)
             pRD.hospital_name = hospital_name
+            pRD.doctor_name=doctor_name
             pRD.status= enc_decr.encrypt(status)
 
             pRD.save()
@@ -1343,8 +1364,6 @@ def editpatientRecordInfo(request,id):
         patient.potassium =  enc_decr.encrypt(potassium)
         patient.sodium =  enc_decr.encrypt(sodium)
         patient.message =  enc_decr.encrypt(message)
-        patient.save()
-        return HttpResponse("Patient record updated successfully")
 
     return render(request,'secureHealth/edit-patient-record.html',{'patient':patient,'decrypt_data':decrypt_data})
 

@@ -9,7 +9,7 @@
 <div class="col-lg-8 offset-lg-2">
     <form action="{% url 'addPatient' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        
+        {{form.errors}}
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
@@ -137,6 +137,20 @@
                         <option value="kims hospital">Kims Hospital</option>
                     </select>
                     
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Doctor</label>
+                    <select class="select form-control" name="doctor_name">
+                        <option>Select</option>
+                        <option value="dranitha12">Dr Anitha Samuel</option>
+                        <option value="drramesh23">Dr Ramesh Raj</option>
+                        <option value="drveena78">Dr Veena Madhavan</option>
+                        <option value="drrashmika235">Dr Rashmika Yash</option>
+                        <option value="drshanthi09">Dr shanthi Sarogam</option>
+                        <option value="drmathew89">Dr Mathew Vargheese</option>
+                    </select>
                 </div>
             </div>
         <div class="form-group">
